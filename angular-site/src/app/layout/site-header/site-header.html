@@ -1,0 +1,31 @@
+<header class="site-header">
+  <a class="brand" routerLink="/" aria-label="HPS Technologies home" (click)="closeMenu()">
+    <img [src]="logo" alt="HPS Technologies" />
+  </a>
+
+  <button class="menu-toggle" type="button" aria-label="Toggle navigation" [attr.aria-expanded]="isOpen()" (click)="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <nav class="nav-links" [class.is-open]="isOpen()" aria-label="Primary navigation">
+    @for (item of navItems; track item.path) {
+      @if (item.children?.length) {
+        <div class="nav-item has-dropdown">
+          <a [routerLink]="item.path" routerLinkActive="active" (click)="closeMenu()">{{ item.label }}</a>
+          <button class="dropdown-trigger" type="button" aria-label="Open services menu">▾</button>
+          <div class="dropdown-panel">
+            @for (child of item.children; track child.path) {
+              <a [routerLink]="child.path" routerLinkActive="active" (click)="closeMenu()">{{ child.label }}</a>
+            }
+          </div>
+        </div>
+      } @else {
+        <a [routerLink]="item.path" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: item.path === '/' }" (click)="closeMenu()">
+          {{ item.label }}
+        </a>
+      }
+    }
+  </nav>
+</header>

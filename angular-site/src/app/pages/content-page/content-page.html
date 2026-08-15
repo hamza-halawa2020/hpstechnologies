@@ -1,0 +1,47 @@
+@let data = page();
+
+<section class="page-hero">
+  <img [src]="data.image" [alt]="data.title" />
+  <div class="page-hero-overlay"></div>
+  <div class="section-inner page-hero-content">
+    <p class="eyebrow">{{ data.eyebrow }}</p>
+    <h1>{{ data.title }}</h1>
+    <p>{{ data.subtitle }}</p>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="section-inner content-grid">
+    <article>
+      @for (paragraph of data.body; track paragraph) {
+        <p>{{ paragraph }}</p>
+      }
+    </article>
+
+    <aside class="contact-panel">
+      <h2>Ready to discuss a project?</h2>
+      <p>Send a short brief and the team will respond within 24 hours.</p>
+      <a class="primary-button" href="https://wa.me/60173800585?text=Hello%20HPS%20Technologies,%20I%20visited%20your%20website%20and%20I'd%20like%20to%20discuss%20a%20project." target="_blank" rel="nofollow">Request a Free Consultation</a>
+    </aside>
+  </div>
+</section>
+
+@if (data.cards?.length) {
+  <section class="services services--page">
+    <div class="section-inner">
+      <h2>Engineering Capabilities</h2>
+      <div class="service-grid">
+        @for (card of data.cards; track card.title) {
+          <article class="service-card">
+            <img [src]="card.image" [alt]="card.title" />
+            <h3>{{ card.title }}</h3>
+            <p>{{ card.text }}</p>
+            @if (card.path) {
+              <a [routerLink]="card.path">Learn More &gt;</a>
+            }
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+}
