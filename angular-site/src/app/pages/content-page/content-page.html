@@ -1,0 +1,28 @@
+<section class="page-hero">
+  <img [src]="page.image" [alt]="page.title" />
+  <div>
+    <h1>{{ page.title }}</h1>
+    <p>{{ page.subtitle }}</p>
+  </div>
+</section>
+
+<section class="section content-layout">
+  <article>
+    <span>HPS Technologies</span>
+    <h2>{{ page.title }}</h2>
+    <p>{{ page.intro }}</p>
+
+    <ul class="check-list">
+      @for (highlight of page.highlights; track highlight) {
+        <li>{{ highlight }}</li>
+      }
+    </ul>
+  </article>
+
+  <aside>
+    <h3>Services</h3>
+    @for (service of services; track service.path) {
+      <a [routerLink]="service.path">{{ service.title }}</a>
+    }
+  </aside>
+</section>

@@ -1,54 +1,54 @@
 import { Routes } from '@angular/router';
-import { MirrorPage } from './pages/mirror-page/mirror-page';
+import { ContentPage } from './pages/content-page/content-page';
+import { HomePage } from './pages/home-page/home-page';
 
 export const routes: Routes = [
   {
     path: '',
-    component: MirrorPage,
+    component: HomePage,
     title: 'HPS Technologies',
-    data: { file: '/mirror/home.html' },
   },
   {
     path: 'engineering-solutions',
-    component: MirrorPage,
+    component: ContentPage,
     title: 'Services | HPS Technologies',
-    data: { file: '/mirror/engineering-solutions/index.html' },
+    data: { pageKey: 'services' },
   },
   {
     path: 'cfd-and-simulation-engineers',
-    component: MirrorPage,
+    component: ContentPage,
     title: 'CFD & Simulation | HPS Technologies',
-    data: { file: '/mirror/cfd-and-simulation-engineers/index.html' },
+    data: { pageKey: 'cfd' },
   },
   {
     path: 'embedded-electrical-and-software-engineering-services',
-    component: MirrorPage,
+    component: ContentPage,
     title: 'Embedded, Electrical & Software | HPS Technologies',
-    data: { file: '/mirror/embedded-electrical-and-software-engineering-services/index.html' },
+    data: { pageKey: 'embedded' },
   },
   {
     path: 'mechanical-engineering-services',
-    component: MirrorPage,
+    component: ContentPage,
     title: 'Mechanical Engineering | HPS Technologies',
-    data: { file: '/mirror/mechanical-engineering-services/index.html' },
+    data: { pageKey: 'mechanical' },
   },
   {
     path: 'engineering-services',
-    component: MirrorPage,
+    component: ContentPage,
     title: 'About us | HPS Technologies',
-    data: { file: '/mirror/engineering-services/index.html' },
+    data: { pageKey: 'about' },
   },
   {
     path: 'industry-solutions-engineering-solutions',
-    component: MirrorPage,
+    component: ContentPage,
     title: 'Industries served | HPS Technologies',
-    data: { file: '/mirror/industry-solutions-engineering-solutions/index.html' },
+    data: { pageKey: 'industries' },
   },
   {
     path: 'engineering-randd-services',
-    component: MirrorPage,
+    component: ContentPage,
     title: 'Contact | HPS Technologies',
-    data: { file: '/mirror/engineering-randd-services/index.html' },
+    data: { pageKey: 'contact' },
   },
   { path: '**', redirectTo: '' },
 ];

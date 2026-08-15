@@ -1,0 +1,19 @@
+<section class="section section-dark">
+  <div class="section-head">
+    <span>Engineering Services</span>
+    <h2>Integrated technical support for complex products and systems.</h2>
+  </div>
+
+  <div class="service-grid">
+    @for (service of services; track service.title) {
+      <article class="service-card">
+        <img [src]="service.image" [alt]="service.title" />
+        <div>
+          <h3>{{ service.title }}</h3>
+          <p>{{ service.description }}</p>
+          <a [routerLink]="service.path">Learn More</a>
+        </div>
+      </article>
+    }
+  </div>
+</section>
