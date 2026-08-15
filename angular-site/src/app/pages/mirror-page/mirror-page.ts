@@ -28,6 +28,8 @@ export class MirrorPage {
   }
 
   private async loadPage(): Promise<void> {
+    this.ensureStyles();
+
     const file = this.route.snapshot.data['file'] as string;
     const response = await fetch(file, { cache: 'no-store' });
     const html = await response.text();
@@ -40,5 +42,22 @@ export class MirrorPage {
 
     this.container.nativeElement.innerHTML = documentSnapshot.body.innerHTML;
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }
+
+  private ensureStyles(): void {
+    [
+      '/_astro-1784990859179/_..D2IiofZg.css',
+      '/_astro-1784990859179/cookieconsent.DjanN7tQ.css',
+      '/static-fix.css',
+    ].forEach((href) => {
+      if (document.head.querySelector(`link[href="${href}"]`)) {
+        return;
+      }
+
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = href;
+      document.head.appendChild(link);
+    });
   }
 }
