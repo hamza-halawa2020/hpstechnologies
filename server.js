@@ -4,7 +4,7 @@ const path = require("path");
 const { exec } = require("child_process");
 
 const root = __dirname;
-const preferredPort = Number(process.env.PORT || 8080);
+const preferredPort = Number(process.env.PORT || 8099);
 
 const types = {
   ".html": "text/html; charset=utf-8",
@@ -43,9 +43,22 @@ function handler(req, res) {
     return;
   }
 
-  res.writeHead(200, {
-    "Content-Type": types[path.extname(filePath).toLowerCase()] || "application/octet-stream",
-  });
+  const ext = path.extname(filePath).toLowerCase();
+  const contentType = types[ext] || "application/octet-stream";
+
+  if (ext === ".html") {
+    let html = fs.readFileSync(filePath, "utf8");
+
+    html = html
+      .replace(/<script\b(?![^>]*type=["']application\/ld\+json["'])[\s\S]*?<\/script>/gi, "")
+      .replace("</head>", '<style>astro-island,astro-slot,astro-static-slot{display:contents!important}.transition,.transition--root-hidden,.transition--slide,.transition--fade,.transition--scale,.transition--slide-left,.transition--slide-right,.transition--blur,.transition--rise,[data-animation-role],[data-animation-role=image],[data-animation-role=block-element]{opacity:1!important;visibility:visible!important;transform:none!important;filter:none!important}</style></head>');
+
+    res.writeHead(200, { "Content-Type": contentType, "Cache-Control": "no-store" });
+    res.end(html);
+    return;
+  }
+
+  res.writeHead(200, { "Content-Type": contentType });
   fs.createReadStream(filePath).pipe(res);
 }
 
