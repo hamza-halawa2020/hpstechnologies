@@ -1,9 +1,10 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
+const { exec } = require("child_process");
 
 const root = __dirname;
-const preferredPort = Number(process.env.PORT || 4173);
+const preferredPort = Number(process.env.PORT || 8080);
 
 const types = {
   ".html": "text/html; charset=utf-8",
@@ -61,7 +62,11 @@ function listen(port) {
   });
 
   server.listen(port, "127.0.0.1", () => {
-    console.log(`HPS mirror running at http://127.0.0.1:${port}`);
+    const url = `http://127.0.0.1:${port}`;
+    console.log(`HPS mirror running at ${url}`);
+    if (process.env.OPEN_BROWSER !== "0") {
+      exec(`start "" "${url}"`);
+    }
   });
 }
 
